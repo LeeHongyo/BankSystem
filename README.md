@@ -29,3 +29,4 @@
 - 호스팅은 라즈베리 파이를 서버로서 작동시킨다.
 ---
 # ERD
+<img width="539" alt="BankERD" src="https://github.com/user-attachments/assets/efd19ad1-862e-4732-9580-5c0a34efa04a">
