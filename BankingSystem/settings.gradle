@@ -1,1 +1,3 @@
 rootProject.name = 'BankingSystem'
+include 'bankingApi'
+include 'bankingDb'
