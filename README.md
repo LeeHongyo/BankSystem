@@ -23,10 +23,15 @@
 - 만일 잔액의 범위를 초과해 송금을 할 경우 송금 불가 메시지를 팝업으로 띄워진다.
 - 입금 혹은 출금을 완료 하였을 경우 팝업을 통해 확인 메시지를 확인 할 수 있다.
 
+
+## 추가기능
+### 잔액 조회 기능
+- 이용자의 거래내역 및 잔액을 확인할 수 있다.
+- 특정 거래 내역을 조회할 수 있다.
+
 ---
 ### 호스팅
-
 - 호스팅은 라즈베리 파이를 서버로서 작동시킨다.
 ---
 # ERD
-<img width="539" alt="BankERD" src="https://github.com/user-attachments/assets/efd19ad1-862e-4732-9580-5c0a34efa04a">
+![banksystem](https://github.com/user-attachments/assets/6aa95e3e-ea09-48ba-90f9-a9648c6e20c7)
