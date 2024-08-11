@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "account")
 public class AccountEntity {
 
   @Id
@@ -14,7 +15,7 @@ public class AccountEntity {
   @JoinColumn(name = "userId", nullable = false)
   private UserEntity user;
 
-  @Column(nullable = false, unique = true, length = 20)
+  @Column(nullable = false, unique = true, length = 13)
   private String accountNumber;
 
   @Column(nullable = false)
@@ -23,7 +24,6 @@ public class AccountEntity {
   @Column(nullable = false)
   private LocalDateTime creationDate;
 
-  // Getters and Setters
   public Long getAccountId() {
     return accountId;
   }

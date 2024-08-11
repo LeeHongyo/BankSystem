@@ -6,4 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
- }
+ // 사용자 이름으로 사용자 찾기
+ UserEntity findByUsername(String username);
+
+ // 전화번호로 사용자 찾기
+ UserEntity findByPhoneNumber(String phoneNumber);
+}

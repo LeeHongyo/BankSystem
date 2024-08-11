@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "user")
 public class UserEntity {
 
   @Id
@@ -13,19 +14,22 @@ public class UserEntity {
   @Column(nullable = false, length = 50)
   private String username;
 
-  @Column(nullable = false)
+  @Column(nullable = false, length = 255)
   private String password;
 
-  @Column(nullable = false, unique = true, length = 15)
+  @Column(nullable = false, length = 15, unique = true)
   private String phoneNumber;
 
   @Column(nullable = false)
-  private Boolean verificationStatus;
+  private Boolean verificationStatus = false;
 
   @Column(nullable = false)
   private LocalDateTime registrationDate;
 
-  // Getters and Setters
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private UserRole role; // enum으로 역할 정의
+
   public Long getUserId() {
     return userId;
   }
@@ -72,5 +76,18 @@ public class UserEntity {
 
   public void setRegistrationDate(LocalDateTime registrationDate) {
     this.registrationDate = registrationDate;
+  }
+
+  public UserRole getRole() {
+    return role;
+  }
+
+  public void setRole(UserRole role) {
+    this.role = role;
+  }
+
+  public enum UserRole {
+    USER,
+    SUBSCRIBER
   }
 }

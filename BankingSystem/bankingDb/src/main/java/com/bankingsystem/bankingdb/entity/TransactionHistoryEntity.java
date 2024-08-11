@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "transactionhistory")
 public class TransactionHistoryEntity {
 
   @Id
@@ -14,16 +15,16 @@ public class TransactionHistoryEntity {
   @JoinColumn(name = "accountId", nullable = false)
   private AccountEntity account;
 
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private TransactionType transactionType;
+
   @Column(nullable = false)
   private Double amount;
 
-  @Column(nullable = false, length = 10)
-  private String transactionType; // "DEPOSIT" or "WITHDRAWAL"
-
   @Column(nullable = false)
-  private LocalDateTime transactionDate;
+  private LocalDateTime transactionTime;
 
-  // Getters and Setters
   public Long getTransactionId() {
     return transactionId;
   }
@@ -40,6 +41,14 @@ public class TransactionHistoryEntity {
     this.account = account;
   }
 
+  public TransactionType getTransactionType() {
+    return transactionType;
+  }
+
+  public void setTransactionType(TransactionType transactionType) {
+    this.transactionType = transactionType;
+  }
+
   public Double getAmount() {
     return amount;
   }
@@ -48,19 +57,16 @@ public class TransactionHistoryEntity {
     this.amount = amount;
   }
 
-  public String getTransactionType() {
-    return transactionType;
+  public LocalDateTime getTransactionTime() {
+    return transactionTime;
   }
 
-  public void setTransactionType(String transactionType) {
-    this.transactionType = transactionType;
+  public void setTransactionTime(LocalDateTime transactionTime) {
+    this.transactionTime = transactionTime;
   }
 
-  public LocalDateTime getTransactionDate() {
-    return transactionDate;
-  }
-
-  public void setTransactionDate(LocalDateTime transactionDate) {
-    this.transactionDate = transactionDate;
+  public enum TransactionType {
+    Deposit,
+    Withdrawal
   }
 }

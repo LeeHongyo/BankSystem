@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "loginsession")
 public class LoginSessionEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long sessionId;
@@ -19,7 +21,6 @@ public class LoginSessionEntity {
   @Column
   private LocalDateTime logoutTime;
 
-  // Getters and Setters
   public Long getSessionId() {
     return sessionId;
   }
