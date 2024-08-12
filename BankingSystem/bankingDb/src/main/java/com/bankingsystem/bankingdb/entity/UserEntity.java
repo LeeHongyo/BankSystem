@@ -1,7 +1,12 @@
 package com.bankingsystem.bankingdb.entity;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Collection;
 
 @Entity
 @Table(name = "user")
@@ -84,6 +89,10 @@ public class UserEntity {
 
   public void setRole(UserRole role) {
     this.role = role;
+  }
+
+  public Collection<? extends GrantedAuthority> getRoles() {
+    return Collections.singletonList(new SimpleGrantedAuthority(role.name()));
   }
 
   public enum UserRole {

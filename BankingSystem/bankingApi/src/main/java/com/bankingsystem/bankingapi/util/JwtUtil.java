@@ -24,12 +24,12 @@ public class JwtUtil {
 
   private String createToken(Map<String, Object> claims, String subject) {
     return Jwts.builder()
-        .setClaims(claims)
-        .setSubject(subject)
-        .setIssuedAt(new Date(System.currentTimeMillis()))
-        .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-        .signWith(SECRET_KEY)
-        .compact();
+            .setClaims(claims)
+            .setSubject(subject)
+            .setIssuedAt(new Date(System.currentTimeMillis()))
+            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+            .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+            .compact();
   }
 
   public boolean validateToken(String token, String username) {
@@ -42,11 +42,11 @@ public class JwtUtil {
   }
 
   private Claims extractAllClaims(String token) {
-    return Jwts.parserBuilder()
-        .setSigningKey(SECRET_KEY)
-        .build()
-        .parseClaimsJws(token)
-        .getBody();
+    return Jwts.parser()
+            .setSigningKey(SECRET_KEY)
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
   }
 
   private boolean isTokenExpired(String token) {
