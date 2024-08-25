@@ -1,13 +1,27 @@
 package com.bankingsystem.bankingapi.dto;
 
 import java.time.LocalDateTime;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class UserDto {
+
+    @NotNull
     private Long userId;
+
+    @NotEmpty
     private String username;
+
+    @NotEmpty
     private String phoneNumber;
+
+    @NotNull
     private Boolean verificationStatus;
+
+    @NotNull
     private LocalDateTime registrationDate;
+
+    @NotEmpty
     private String role;
 
     // Getters and Setters

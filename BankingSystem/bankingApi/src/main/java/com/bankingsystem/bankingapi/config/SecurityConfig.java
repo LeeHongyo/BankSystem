@@ -56,4 +56,5 @@ public class SecurityConfig {
     authenticationManagerBuilder.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
     return authenticationManagerBuilder.build();
   }
+
 }

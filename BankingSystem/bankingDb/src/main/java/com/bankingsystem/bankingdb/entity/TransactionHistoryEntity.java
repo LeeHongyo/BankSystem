@@ -22,7 +22,7 @@ public class TransactionHistoryEntity {
 
   private TransactionType transactionType;
 
-  private BigDecimal amount;  // Double에서 BigDecimal로 변경
+  private BigDecimal amount;
 
   private LocalDateTime transactionTime;
 

@@ -13,7 +13,7 @@ public class AccountEntity {
 
   private String accountNumber;
 
-  private BigDecimal balance;  // Double에서 BigDecimal로 변경
+  private BigDecimal balance;
 
   private LocalDateTime creationDate;
 

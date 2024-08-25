@@ -1,4 +1,4 @@
-package com.bankingsystem.bankingapi.domain.account.controller.reponse;
+package com.bankingsystem.bankingapi.domain.account.controller.model;
 
 import org.springframework.http.HttpStatus;
 
