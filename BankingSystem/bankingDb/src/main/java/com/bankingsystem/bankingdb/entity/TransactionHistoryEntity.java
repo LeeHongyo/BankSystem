@@ -1,36 +1,38 @@
 package com.bankingsystem.bankingdb.entity;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "transactionhistory")
 public class TransactionHistoryEntity {
+
+  public enum TransactionType {
+    Deposit,
+    Withdrawal
+  }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long transactionId;
+  private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "accountId", nullable = false)
+  @JoinColumn(name = "account_id")
   private AccountEntity account;
 
-  @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
   private TransactionType transactionType;
 
-  @Column(nullable = false)
-  private Double amount;
+  private BigDecimal amount;  // Double에서 BigDecimal로 변경
 
-  @Column(nullable = false)
   private LocalDateTime transactionTime;
 
-  public Long getTransactionId() {
-    return transactionId;
+  // getter와 setter
+  public Long getId() {
+    return id;
   }
 
-  public void setTransactionId(Long transactionId) {
-    this.transactionId = transactionId;
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public AccountEntity getAccount() {
@@ -49,11 +51,11 @@ public class TransactionHistoryEntity {
     this.transactionType = transactionType;
   }
 
-  public Double getAmount() {
+  public BigDecimal getAmount() {
     return amount;
   }
 
-  public void setAmount(Double amount) {
+  public void setAmount(BigDecimal amount) {
     this.amount = amount;
   }
 
@@ -63,10 +65,5 @@ public class TransactionHistoryEntity {
 
   public void setTransactionTime(LocalDateTime transactionTime) {
     this.transactionTime = transactionTime;
-  }
-
-  public enum TransactionType {
-    Deposit,
-    Withdrawal
   }
 }

@@ -1,43 +1,33 @@
 package com.bankingsystem.bankingdb.entity;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account")
 public class AccountEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long accountId;
+  private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "userId", nullable = false)
-  private UserEntity user;
-
-  @Column(nullable = false, unique = true, length = 13)
   private String accountNumber;
 
-  @Column(nullable = false)
-  private Double balance;
+  private BigDecimal balance;  // Double에서 BigDecimal로 변경
 
-  @Column(nullable = false)
   private LocalDateTime creationDate;
 
-  public Long getAccountId() {
-    return accountId;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private UserEntity user;
+
+  // getter와 setter
+  public Long getId() {
+    return id;
   }
 
-  public void setAccountId(Long accountId) {
-    this.accountId = accountId;
-  }
-
-  public UserEntity getUser() {
-    return user;
-  }
-
-  public void setUser(UserEntity user) {
-    this.user = user;
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getAccountNumber() {
@@ -48,11 +38,11 @@ public class AccountEntity {
     this.accountNumber = accountNumber;
   }
 
-  public Double getBalance() {
+  public BigDecimal getBalance() {
     return balance;
   }
 
-  public void setBalance(Double balance) {
+  public void setBalance(BigDecimal balance) {
     this.balance = balance;
   }
 
@@ -62,5 +52,13 @@ public class AccountEntity {
 
   public void setCreationDate(LocalDateTime creationDate) {
     this.creationDate = creationDate;
+  }
+
+  public UserEntity getUser() {
+    return user;
+  }
+
+  public void setUser(UserEntity user) {
+    this.user = user;
   }
 }
