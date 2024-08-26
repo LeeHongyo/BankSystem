@@ -16,10 +16,15 @@ public class MyUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    UserEntity user = userRepository.findByUsername(username);
-    if (user == null) {
-      throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username);
-    }
-    return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getRoles());
+    // Optional<UserEntity>를 사용하여 사용자 검색
+    UserEntity user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + username));
+
+    // UserEntity를 UserDetails로 변환하여 반환
+    return new org.springframework.security.core.userdetails.User(
+            user.getUsername(),
+            user.getPassword(),
+            user.getRoles() // Assuming getRoles() returns Collection<? extends GrantedAuthority>
+    );
   }
 }
