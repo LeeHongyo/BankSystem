@@ -20,7 +20,7 @@ public class AccountService {
         account.setAccountNumber(accountNumber);
         account.setBalance(BigDecimal.ZERO);
         account.setCreationDate(LocalDateTime.now());
-        account.setUser(new UserEntity()); // UserEntity를 실제로 조회하여 설정
+        account.setUser(new UserEntity());
         account.getUser().setUserId(userId);
         return accountRepository.save(account);
     }
@@ -38,5 +38,24 @@ public class AccountService {
 
     public AccountEntity findByAccountNumber(String accountNumber) {
         return accountRepository.findByAccountNumber(accountNumber);
+    }
+
+    public void deposit(Long accountId, BigDecimal amount) {
+        AccountEntity account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+        account.setBalance(account.getBalance().add(amount));
+        accountRepository.save(account);
+    }
+
+    public void withdraw(Long accountId, BigDecimal amount) {
+        AccountEntity account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
+
+        if (account.getBalance().compareTo(amount) < 0) {
+            throw new RuntimeException("Insufficient funds");
+        }
+
+        account.setBalance(account.getBalance().subtract(amount));
+        accountRepository.save(account);
     }
 }

@@ -43,4 +43,20 @@ public class AccountApiController {
         AccountEntity account = accountService.findByAccountNumber(accountNumber);
         return ResponseEntity.ok(accountConverter.entityToDto(account));
     }
+
+    @PostMapping("/deposit")
+    public ResponseEntity<Void> deposit(@RequestParam Long accountId, @RequestParam BigDecimal amount) {
+        accountService.deposit(accountId, amount);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<Void> withdraw(@RequestParam Long accountId, @RequestParam BigDecimal amount) {
+        try {
+            accountService.withdraw(accountId, amount);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }

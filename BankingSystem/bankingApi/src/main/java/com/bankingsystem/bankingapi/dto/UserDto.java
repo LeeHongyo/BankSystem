@@ -9,6 +9,9 @@ public class UserDto {
     @NotNull
     private Long userId;
 
+    @NotNull
+    private String password;
+
     @NotEmpty
     private String username;
 
@@ -31,6 +34,14 @@ public class UserDto {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUsername() {

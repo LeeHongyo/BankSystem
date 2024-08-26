@@ -1,5 +1,7 @@
 package com.bankingsystem.bankingapi.domain.user.service;
 
+import com.bankingsystem.bankingapi.domain.user.service.IdentityVerificationService;
+import com.bankingsystem.bankingapi.dto.UserDto;
 import com.bankingsystem.bankingdb.entity.UserEntity;
 import com.bankingsystem.bankingdb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,15 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private IdentityVerificationService identityVerificationService;
 
     public UserEntity registerUser(UserEntity user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -42,5 +48,22 @@ public class UserService {
     public UserEntity findUserByPhoneNumber(String phoneNumber) {
         return userRepository.findByPhoneNumber(phoneNumber)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    // 신분증 검증을 포함한 사용자 등록
+    public UserEntity registerUser(UserDto userDto, String idCardNumber) {
+        if (!identityVerificationService.verifyIdentity(userDto.getUserId().toString(), idCardNumber)) {
+            throw new RuntimeException("Identity verification failed");
+        }
+
+        UserEntity user = new UserEntity();
+        user.setUsername(userDto.getUsername());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setVerificationStatus(true); // 인증된 상태로 설정
+        user.setRegistrationDate(LocalDateTime.now());
+        user.setRole(UserEntity.UserRole.USER);
+
+        return userRepository.save(user);
     }
 }
