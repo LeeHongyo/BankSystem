@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import com.bankingsystem.bankingdb.entity.UserEntity;
+
 public class UserDto {
 
     @NotNull
@@ -26,6 +28,19 @@ public class UserDto {
 
     @NotEmpty
     private String role;
+
+    public UserDto(UserEntity userEntity) {
+        this.userId = userEntity.getUserId();
+        this.password = userEntity.getPassword(); // 필요에 따라 암호화된 패스워드를 전달
+        this.username = userEntity.getUsername();
+        this.phoneNumber = userEntity.getPhoneNumber();
+        this.verificationStatus = userEntity.getVerificationStatus();
+        this.registrationDate = userEntity.getRegistrationDate();
+        this.role = userEntity.getRole().name(); // Enum을 String으로 변환
+    }
+
+    // 기본 생성자도 추가할 수 있음 (필요시)
+    public UserDto() {}
 
     // Getters and Setters
     public Long getUserId() {

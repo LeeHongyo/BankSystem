@@ -30,4 +30,13 @@ public class UserApiController {
         UserEntity userEntity = userService.findUserByUsername(username);
         return ResponseEntity.ok(userConverter.entityToDto(userEntity));
     }
+
+    @PutMapping("/{userId}/profile")
+    public ResponseEntity<UserDto> updateUserProfile(
+            @PathVariable Long userId,
+            @RequestBody UserDto userDto) {
+        UserEntity updatedUser = userService.updateUserProfile(userId, userDto);
+        return ResponseEntity.ok(new UserDto(updatedUser));
+    }
+
 }

@@ -66,4 +66,20 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    // 사용자 프로필 업데이트
+    public UserEntity updateUserProfile(Long userId, UserDto userDto) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setUsername(userDto.getUsername());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+
+        if (userDto.getPassword() != null && !userDto.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        }
+
+        return userRepository.save(user);
+    }
+
 }
